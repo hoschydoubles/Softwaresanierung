@@ -1,26 +1,19 @@
 package de.binaris.seams.logic;
 
-import java.io.IOException;
-import java.util.Random;
-
 import de.binaris.seams.robot.RemoteEV3;
-import de.binaris.seams.service.SoundService;
-import lejos.hardware.Sound;
-import lejos.hardware.motor.Motor;
-import lejos.remote.ev3.RemoteRequestEV3;
+import de.binaris.seams.service.ColorSensorService;
+import de.binaris.seams.service.seam.SoundService;
 import lejos.remote.ev3.RemoteRequestPilot;
 import lejos.robotics.Color;
-import lejos.robotics.navigation.DifferentialPilot;
-import de.binaris.seams.service.ColorSensorService;
+
+import java.util.Random;
 
 public class StayInBorder {
-
-    private static final String BRICK_IP = "192.168.0.101";
 
     public boolean start(int maxBorderHitsTillQuit) {
         boolean thresholdNotReached = true;
 
-        RemoteEV3 ev3 = new RemoteEV3();
+        RemoteEV3 ev3 = createRemoteEV3();
         try {
             RemoteRequestPilot pilot = ev3.createPilot();
             ColorSensorService colorSensorService = ev3.getColorSensorService();
@@ -46,6 +39,10 @@ public class StayInBorder {
         }
 
         return !thresholdNotReached;
+    }
+    
+    protected RemoteEV3 createRemoteEV3() {
+        return new RemoteEV3();
     }
 
     private double getRandomTurnDirectionWithinRange(double min, double max) {

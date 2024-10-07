@@ -15,7 +15,7 @@ public class RemoteEV3 {
     private ColorSensorService colorSensorService;
 
     public RemoteEV3() {
-        String EV3BRICK_IP = "192.168.178.126";
+        String EV3BRICK_IP = "192.168.0.100";
 
         try {
             ev3 = new RemoteRequestEV3(EV3BRICK_IP);
